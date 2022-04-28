@@ -13,4 +13,19 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user), alert: "操作できません"
     end
   end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to user_path(current_user), notice: "更新ししました"
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :email, :profile, :profile_image)
+  end
 end
