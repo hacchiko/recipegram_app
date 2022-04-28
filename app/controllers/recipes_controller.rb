@@ -22,6 +22,9 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find(params[:id])
+    if @recipe.user != current_user
+      redirect_to recipes_path, alert: "アクセス制限されています"
+    end
   end
 
   def destroy
